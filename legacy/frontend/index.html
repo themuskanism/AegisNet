@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AegisNet | Network Security Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div class="app">
+
+        <aside class="sidebar">
+            <div class="logo">
+                <div class="logo-icon">🛡️</div>
+                <div>
+                    <h2>AegisNet</h2>
+                    <span>Network Security</span>
+                </div>
+            </div>
+
+            <nav>
+                <a href="#" class="active">📊 Dashboard</a>
+                <a href="#">🌐 Network Traffic</a>
+                <a href="#">🚨 Threat Detection</a>
+                <a href="#">📈 Analytics</a>
+                <a href="#">⚙️ Settings</a>
+            </nav>
+
+            <div class="system-status">
+                <span class="status-dot"></span>
+                <div>
+                    <strong>System Online</strong>
+                    <small>Monitoring active</small>
+                </div>
+            </div>
+        </aside>
+
+
+        <main class="main-content">
+
+            <header class="topbar">
+                <div>
+                    <p class="eyebrow">SECURITY OPERATIONS</p>
+                    <h1>Network Security Dashboard</h1>
+                    <p class="subtitle">
+                        Real-time network traffic monitoring and threat analysis
+                    </p>
+                </div>
+
+                <div class="header-status">
+                    <span class="status-dot"></span>
+                    <span>Live Monitoring</span>
+                </div>
+            </header>
+
+
+            <section class="stats-grid">
+
+                <div class="stat-card">
+                    <div class="stat-icon">📦</div>
+                    <div>
+                        <span>Total Packets</span>
+                        <h2 id="totalPackets">--</h2>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon">🔗</div>
+                    <div>
+                        <span>TCP Packets</span>
+                        <h2 id="tcpPackets">--</h2>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon">📡</div>
+                    <div>
+                        <span>UDP Packets</span>
+                        <h2 id="udpPackets">--</h2>
+                    </div>
+                </div>
+
+                <div class="stat-card threat-card">
+                    <div class="stat-icon">🚨</div>
+                    <div>
+                        <span>Threats Detected</span>
+                        <h2 id="threats">0</h2>
+                    </div>
+                </div>
+
+            </section>
+
+
+            <section class="dashboard-grid">
+
+                <div class="panel">
+                    <div class="panel-header">
+                        <div>
+                            <h3>Traffic Overview</h3>
+                            <p>Network protocol distribution</p>
+                        </div>
+                        <span class="badge">LIVE</span>
+                    </div>
+
+                    <div class="traffic-bars">
+
+                        <div class="bar-row">
+                            <div class="bar-label">
+                                <span>TCP</span>
+                                <strong id="tcpPercent">--</strong>
+                            </div>
+                            <div class="bar-background">
+                                <div class="bar-fill tcp" id="tcpBar"></div>
+                            </div>
+                        </div>
+
+                        <div class="bar-row">
+                            <div class="bar-label">
+                                <span>UDP</span>
+                                <strong id="udpPercent">--</strong>
+                            </div>
+                            <div class="bar-background">
+                                <div class="bar-fill udp" id="udpBar"></div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+
+                <div class="panel">
+                    <div class="panel-header">
+                        <div>
+                            <h3>Security Status</h3>
+                            <p>Current system condition</p>
+                        </div>
+                    </div>
+
+                    <div class="security-status">
+                        <div class="shield">🛡️</div>
+
+                        <div>
+                            <h2>Protected</h2>
+                            <p>No active threats detected</p>
+                        </div>
+                    </div>
+                </div>
+
+            </section>
+
+
+            <section class="panel">
+
+                <div class="panel-header">
+                    <div>
+                        <h3>Top Source IP Addresses</h3>
+                        <p>Most active network sources</p>
+                    </div>
+
+                    <button onclick="loadDashboard()">↻ Refresh</button>
+                </div>
+
+                <div class="table-container">
+
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Source IP</th>
+                                <th>Packets</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+
+                        <tbody id="ipTable">
+                            <tr>
+                                <td colspan="4" class="loading">
+                                    Loading network data...
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+
+            </section>
+
+
+            <footer>
+                <span>AegisNet • AI-Powered Network Security</span>
+                <span>Prototype v1.0</span>
+            </footer>
+
+        </main>
+
+    </div>
+
+    <script src="script.js"></script>
+
+</body>
+</html>
