@@ -1,7 +1,5 @@
 import importlib.util
-import json
 import time
-import pytest
 from fastapi.testclient import TestClient
 
 
@@ -54,7 +52,7 @@ def test_fixture_inference_unavailable_never_becomes_benign(tmp_path):
     from backend.flows import Flow,Packet
     with TestClient(app) as c:
         f=Flow([Packet(1,'192.0.2.1','198.51.100.2',1,2,6,40)])
-        app.state.runtime.flow_queue.put((f,'synthetic_fixture'))
+        app.state.runtime.flow_queue.put((f,'synthetic_fixture',time.perf_counter()))
         for _ in range(100):
             rows=c.get('/api/flows').json()
             if rows:break
@@ -62,3 +60,44 @@ def test_fixture_inference_unavailable_never_becomes_benign(tmp_path):
         assert rows[0]['prediction'] is None
         assert rows[0]['provenance']=='synthetic_fixture'
         assert c.get('/api/incidents').json()==[]
+
+
+def test_shutdown_drains_explanations_after_inference(tmp_path):
+    from backend.runtime import Runtime
+    from backend.store import Store
+    from backend.flows import Flow,Packet
+    import threading
+    s=Store('sqlite:///'+str(tmp_path/'drain.db'));s.initialize()
+    r=Runtime(s,tmp_path)
+    entered=threading.Event()
+    class SlowDetector:
+        ready=True;metadata={'version':'test'}
+        def predict(self,values):
+            entered.set();time.sleep(.3)
+            return {'label':'DDoS','malicious_probability':1.,'confidence':1.,'model_version':'test'}
+        def explain(self,values):return {'method':'test-double','elapsed_ms':1}
+    r.detector=SlowDetector();r.start()
+    f=Flow([Packet(1,'8.8.4.4','198.51.100.2',1,2,6,40)]*200)
+    r.flow_queue.put((f,'synthetic_fixture',time.perf_counter()));assert entered.wait(3)
+    r.shutdown()
+    assert r.xai_queue.empty()
+    assert s.incident(f.id)['explanation']['status']=='ready'
+    assert s.actions()[0]['status']=='simulated'
+    assert s.actions()[0]['incident_id']==f.id
+
+def test_capture_start_audit_failure_stops_sniffer(tmp_path,monkeypatch):
+    import scapy.all
+    from backend.runtime import Runtime
+    from backend.store import Store
+    stopped=[]
+    class Sniffer:
+        def __init__(self,**kwargs):self.kwargs=kwargs;self.running=False
+        def start(self):self.running=True;self.kwargs['started_callback']()
+        def stop(self):self.running=False;stopped.append(True)
+    s=Store('sqlite:///:memory:');s.initialize();r=Runtime(s,tmp_path)
+    monkeypatch.setattr(scapy.all,'get_if_list',lambda:['fixture'])
+    monkeypatch.setattr(scapy.all,'AsyncSniffer',Sniffer)
+    monkeypatch.setattr(s,'event',lambda *a:(_ for _ in ()).throw(RuntimeError('DB unavailable')))
+    import pytest
+    with pytest.raises(ValueError,match='DB unavailable'):r.start_capture('fixture')
+    assert stopped and r.sniffer is None and r.capture['status']=='error'

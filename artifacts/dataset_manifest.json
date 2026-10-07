@@ -1,0 +1,60 @@
+{
+  "dataset": "IoT-23 / CTU-IoT-Malware-Capture-34-1",
+  "matched_flows": 5520,
+  "excluded_unmatched_or_ambiguous": 2810,
+  "support": {
+    "train": {
+      "Benign": 1493,
+      "C&C": 2169,
+      "PartOfAHorizontalPortScan": 218,
+      "DDoS": 297
+    },
+    "validation": {
+      "Benign": 205,
+      "C&C": 410,
+      "PartOfAHorizontalPortScan": 11,
+      "DDoS": 38
+    },
+    "test": {
+      "Benign": 255,
+      "C&C": 387,
+      "PartOfAHorizontalPortScan": 15,
+      "DDoS": 22
+    }
+  },
+  "features": [
+    "duration_s",
+    "protocol",
+    "fwd_packets",
+    "bwd_packets",
+    "fwd_bytes",
+    "bwd_bytes",
+    "length_min",
+    "length_max",
+    "length_mean",
+    "length_std",
+    "iat_mean_s",
+    "iat_std_s",
+    "syn_count",
+    "ack_count",
+    "rst_count",
+    "fin_count",
+    "psh_count",
+    "packets_per_s",
+    "bytes_per_s",
+    "direction_ratio"
+  ],
+  "flow_policy": {
+    "idle_timeout": 30.0,
+    "active_timeout": 120.0,
+    "max_packets": 256,
+    "direction": "first-observed",
+    "bytes": "IP-layer",
+    "sequence_length": 32
+  },
+  "split": "UID + duplicate-feature union groups; seeded 60/20/20; within one scenario",
+  "sources": {
+    "scenario34.pcap": "92ec7e2f6658ee4b007d0b816986c46cc0338bc5e2bec6ceaaca566c695e4699",
+    "conn.log.labeled": "d69e49b2aae8c1bd33286936531658202dec47d989f0439bad3f8be180467a6e"
+  }
+}

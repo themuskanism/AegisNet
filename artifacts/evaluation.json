@@ -1,0 +1,816 @@
+{
+  "metadata": {
+    "version": "iot23-34-20261007T140413Z",
+    "schema": "ip-flow-v2",
+    "features": [
+      "duration_s",
+      "protocol",
+      "fwd_packets",
+      "bwd_packets",
+      "fwd_bytes",
+      "bwd_bytes",
+      "length_min",
+      "length_max",
+      "length_mean",
+      "length_std",
+      "iat_mean_s",
+      "iat_std_s",
+      "syn_count",
+      "ack_count",
+      "rst_count",
+      "fin_count",
+      "psh_count",
+      "packets_per_s",
+      "bytes_per_s",
+      "direction_ratio"
+    ],
+    "flow_policy": {
+      "idle_timeout": 30.0,
+      "active_timeout": 120.0,
+      "max_packets": 256,
+      "direction": "first-observed",
+      "bytes": "IP-layer",
+      "sequence_length": 32
+    },
+    "classes": [
+      "Benign",
+      "C&C",
+      "DDoS",
+      "PartOfAHorizontalPortScan"
+    ],
+    "model": "Random Forest",
+    "dataset": "IoT-23 / CTU-IoT-Malware-Capture-34-1",
+    "experiment_date": "2026-10-07T14:04:13.544291+00:00",
+    "sha256": "dccc6b52e04e93f180e62a051db3fd0441ca233864de4a2fd69e83d3197df32d",
+    "selection": "Best validation macro-F1 among calibrated tabular baselines. Operational tabular model supports bounded full-pipeline SHAP; CNN-BiLSTM remains evaluated research candidate, not claimed superior.",
+    "limitations": [
+      "One IoT scenario; not cross-scenario or enterprise validation.",
+      "Validation reused for calibration and model comparison; test remains held out.",
+      "Unsupported traffic and domain shift can produce unreliable predictions.",
+      "No zero-day detection claim."
+    ]
+  },
+  "dataset": {
+    "dataset": "IoT-23 / CTU-IoT-Malware-Capture-34-1",
+    "matched_flows": 5520,
+    "excluded_unmatched_or_ambiguous": 2810,
+    "support": {
+      "train": {
+        "Benign": 1493,
+        "C&C": 2169,
+        "PartOfAHorizontalPortScan": 218,
+        "DDoS": 297
+      },
+      "validation": {
+        "Benign": 205,
+        "C&C": 410,
+        "PartOfAHorizontalPortScan": 11,
+        "DDoS": 38
+      },
+      "test": {
+        "Benign": 255,
+        "C&C": 387,
+        "PartOfAHorizontalPortScan": 15,
+        "DDoS": 22
+      }
+    },
+    "features": [
+      "duration_s",
+      "protocol",
+      "fwd_packets",
+      "bwd_packets",
+      "fwd_bytes",
+      "bwd_bytes",
+      "length_min",
+      "length_max",
+      "length_mean",
+      "length_std",
+      "iat_mean_s",
+      "iat_std_s",
+      "syn_count",
+      "ack_count",
+      "rst_count",
+      "fin_count",
+      "psh_count",
+      "packets_per_s",
+      "bytes_per_s",
+      "direction_ratio"
+    ],
+    "flow_policy": {
+      "idle_timeout": 30.0,
+      "active_timeout": 120.0,
+      "max_packets": 256,
+      "direction": "first-observed",
+      "bytes": "IP-layer",
+      "sequence_length": 32
+    },
+    "split": "UID + duplicate-feature union groups; seeded 60/20/20; within one scenario",
+    "sources": {
+      "scenario34.pcap": "92ec7e2f6658ee4b007d0b816986c46cc0338bc5e2bec6ceaaca566c695e4699",
+      "conn.log.labeled": "d69e49b2aae8c1bd33286936531658202dec47d989f0439bad3f8be180467a6e"
+    }
+  },
+  "experiments": [
+    {
+      "name": "Logistic Regression",
+      "training_seconds": 0.4685890998225659,
+      "validation": {
+        "accuracy": 0.9412650602409639,
+        "precision_macro": 0.6233766233766234,
+        "recall_macro": 0.7164634146341463,
+        "f1_macro": 0.647288120111369,
+        "false_positive_rate": 0.13170731707317074,
+        "confusion_matrix": [
+          [
+            178,
+            0,
+            27,
+            0
+          ],
+          [
+            0,
+            409,
+            1,
+            0
+          ],
+          [
+            0,
+            0,
+            38,
+            0
+          ],
+          [
+            0,
+            0,
+            11,
+            0
+          ]
+        ],
+        "per_class": {
+          "Benign": {
+            "precision": 1.0,
+            "recall": 0.8682926829268293,
+            "f1-score": 0.9295039164490861,
+            "support": 205.0
+          },
+          "C&C": {
+            "precision": 1.0,
+            "recall": 0.9975609756097561,
+            "f1-score": 0.9987789987789988,
+            "support": 410.0
+          },
+          "DDoS": {
+            "precision": 0.4935064935064935,
+            "recall": 1.0,
+            "f1-score": 0.6608695652173913,
+            "support": 38.0
+          },
+          "PartOfAHorizontalPortScan": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1-score": 0.0,
+            "support": 11.0
+          },
+          "accuracy": 0.9412650602409639,
+          "macro avg": {
+            "precision": 0.6233766233766234,
+            "recall": 0.7164634146341463,
+            "f1-score": 0.647288120111369,
+            "support": 664.0
+          },
+          "weighted avg": {
+            "precision": 0.9544476607729621,
+            "recall": 0.9412650602409639,
+            "f1-score": 0.9415071323037848,
+            "support": 664.0
+          }
+        }
+      },
+      "test": {
+        "accuracy": 0.9234167893961709,
+        "precision_macro": 0.5743243243243243,
+        "recall_macro": 0.7180726554187566,
+        "f1_macro": 0.5979669578689509,
+        "false_positive_rate": 0.09411764705882353,
+        "confusion_matrix": [
+          [
+            231,
+            0,
+            24,
+            0
+          ],
+          [
+            0,
+            374,
+            13,
+            0
+          ],
+          [
+            0,
+            0,
+            22,
+            0
+          ],
+          [
+            0,
+            0,
+            15,
+            0
+          ]
+        ],
+        "per_class": {
+          "Benign": {
+            "precision": 1.0,
+            "recall": 0.9058823529411765,
+            "f1-score": 0.9506172839506173,
+            "support": 255.0
+          },
+          "C&C": {
+            "precision": 1.0,
+            "recall": 0.9664082687338501,
+            "f1-score": 0.9829172141918529,
+            "support": 387.0
+          },
+          "DDoS": {
+            "precision": 0.2972972972972973,
+            "recall": 1.0,
+            "f1-score": 0.4583333333333333,
+            "support": 22.0
+          },
+          "PartOfAHorizontalPortScan": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1-score": 0.0,
+            "support": 15.0
+          },
+          "accuracy": 0.9234167893961709,
+          "macro avg": {
+            "precision": 0.5743243243243243,
+            "recall": 0.7180726554187566,
+            "f1-score": 0.5979669578689509,
+            "support": 679.0
+          },
+          "weighted avg": {
+            "precision": 0.9551407077180273,
+            "recall": 0.9234167893961709,
+            "f1-score": 0.9320761452621322,
+            "support": 679.0
+          }
+        },
+        "log_loss": 0.29260543688865404
+      },
+      "latency": {
+        "single_flow_p50_ms": 2.5448498781770468,
+        "single_flow_p95_ms": 3.1612798455171287,
+        "batch_flows_per_second": 234396.56164779273,
+        "batch_size": 679,
+        "includes": "preprocessing + classification; excludes capture/flow wait, DB and XAI"
+      },
+      "parameters": {
+        "C": 1.0,
+        "class_weight": "balanced",
+        "dual": false,
+        "fit_intercept": true,
+        "intercept_scaling": 1,
+        "l1_ratio": null,
+        "max_iter": 2000,
+        "multi_class": "deprecated",
+        "n_jobs": null,
+        "penalty": "l2",
+        "random_state": 42,
+        "solver": "lbfgs",
+        "tol": 0.0001,
+        "verbose": 0,
+        "warm_start": false
+      }
+    },
+    {
+      "name": "Random Forest",
+      "training_seconds": 1.054444900015369,
+      "validation": {
+        "accuracy": 0.9307228915662651,
+        "precision_macro": 0.6859110442629995,
+        "recall_macro": 0.7834490605671606,
+        "f1_macro": 0.712423813986314,
+        "false_positive_rate": 0.13170731707317074,
+        "confusion_matrix": [
+          [
+            178,
+            0,
+            22,
+            5
+          ],
+          [
+            1,
+            409,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            24,
+            14
+          ],
+          [
+            0,
+            0,
+            4,
+            7
+          ]
+        ],
+        "per_class": {
+          "Benign": {
+            "precision": 0.994413407821229,
+            "recall": 0.8682926829268293,
+            "f1-score": 0.9270833333333334,
+            "support": 205.0
+          },
+          "C&C": {
+            "precision": 1.0,
+            "recall": 0.9975609756097561,
+            "f1-score": 0.9987789987789988,
+            "support": 410.0
+          },
+          "DDoS": {
+            "precision": 0.48,
+            "recall": 0.631578947368421,
+            "f1-score": 0.5454545454545454,
+            "support": 38.0
+          },
+          "PartOfAHorizontalPortScan": {
+            "precision": 0.2692307692307692,
+            "recall": 0.6363636363636364,
+            "f1-score": 0.3783783783783784,
+            "support": 11.0
+          },
+          "accuracy": 0.9307228915662651,
+          "macro avg": {
+            "precision": 0.6859110442629995,
+            "recall": 0.7834490605671606,
+            "f1-score": 0.712423813986314,
+            "support": 664.0
+          },
+          "weighted avg": {
+            "precision": 0.956410070880859,
+            "recall": 0.9307228915662651,
+            "f1-score": 0.9404230537984305,
+            "support": 664.0
+          }
+        }
+      },
+      "test": {
+        "accuracy": 0.9381443298969072,
+        "precision_macro": 0.6384096328087745,
+        "recall_macro": 0.7029857397504456,
+        "f1_macro": 0.6464025500910746,
+        "false_positive_rate": 0.09411764705882353,
+        "confusion_matrix": [
+          [
+            231,
+            0,
+            20,
+            4
+          ],
+          [
+            0,
+            387,
+            0,
+            0
+          ],
+          [
+            2,
+            0,
+            17,
+            3
+          ],
+          [
+            0,
+            0,
+            13,
+            2
+          ]
+        ],
+        "per_class": {
+          "Benign": {
+            "precision": 0.9914163090128756,
+            "recall": 0.9058823529411765,
+            "f1-score": 0.9467213114754098,
+            "support": 255.0
+          },
+          "C&C": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1-score": 1.0,
+            "support": 387.0
+          },
+          "DDoS": {
+            "precision": 0.34,
+            "recall": 0.7727272727272727,
+            "f1-score": 0.4722222222222222,
+            "support": 22.0
+          },
+          "PartOfAHorizontalPortScan": {
+            "precision": 0.2222222222222222,
+            "recall": 0.13333333333333333,
+            "f1-score": 0.16666666666666666,
+            "support": 15.0
+          },
+          "accuracy": 0.9381443298969072,
+          "macro avg": {
+            "precision": 0.6384096328087745,
+            "recall": 0.7029857397504456,
+            "f1-score": 0.6464025500910746,
+            "support": 679.0
+          },
+          "weighted avg": {
+            "precision": 0.958209855863942,
+            "recall": 0.9381443298969072,
+            "f1-score": 0.9444813303609991,
+            "support": 679.0
+          }
+        },
+        "log_loss": 0.19209362561352522
+      },
+      "latency": {
+        "single_flow_p50_ms": 42.86319995298982,
+        "single_flow_p95_ms": 54.11877994192764,
+        "batch_flows_per_second": 12356.058280790117,
+        "batch_size": 679,
+        "includes": "preprocessing + classification; excludes capture/flow wait, DB and XAI"
+      },
+      "parameters": {
+        "bootstrap": true,
+        "ccp_alpha": 0.0,
+        "class_weight": "balanced",
+        "criterion": "gini",
+        "max_depth": 16,
+        "max_features": "sqrt",
+        "max_leaf_nodes": null,
+        "max_samples": null,
+        "min_impurity_decrease": 0.0,
+        "min_samples_leaf": 2,
+        "min_samples_split": 2,
+        "min_weight_fraction_leaf": 0.0,
+        "monotonic_cst": null,
+        "n_estimators": 120,
+        "n_jobs": 2,
+        "oob_score": false,
+        "random_state": 42,
+        "verbose": 0,
+        "warm_start": false
+      }
+    },
+    {
+      "name": "Histogram Gradient Boosting",
+      "training_seconds": 2.39391819993034,
+      "validation": {
+        "accuracy": 0.9397590361445783,
+        "precision_macro": 0.7401350870956275,
+        "recall_macro": 0.6932664254872214,
+        "f1_macro": 0.6740348467322151,
+        "false_positive_rate": 0.1073170731707317,
+        "confusion_matrix": [
+          [
+            183,
+            0,
+            22,
+            0
+          ],
+          [
+            0,
+            410,
+            0,
+            0
+          ],
+          [
+            7,
+            0,
+            30,
+            1
+          ],
+          [
+            4,
+            0,
+            6,
+            1
+          ]
+        ],
+        "per_class": {
+          "Benign": {
+            "precision": 0.9432989690721649,
+            "recall": 0.8926829268292683,
+            "f1-score": 0.9172932330827067,
+            "support": 205.0
+          },
+          "C&C": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1-score": 1.0,
+            "support": 410.0
+          },
+          "DDoS": {
+            "precision": 0.5172413793103449,
+            "recall": 0.7894736842105263,
+            "f1-score": 0.625,
+            "support": 38.0
+          },
+          "PartOfAHorizontalPortScan": {
+            "precision": 0.5,
+            "recall": 0.09090909090909091,
+            "f1-score": 0.15384615384615385,
+            "support": 11.0
+          },
+          "accuracy": 0.9397590361445783,
+          "macro avg": {
+            "precision": 0.7401350870956275,
+            "recall": 0.6932664254872214,
+            "f1-score": 0.6740348467322151,
+            "support": 664.0
+          },
+          "weighted avg": {
+            "precision": 0.9465835257132333,
+            "recall": 0.9397590361445783,
+            "f1-score": 0.938987079027504,
+            "support": 664.0
+          }
+        }
+      },
+      "test": {
+        "accuracy": 0.9425625920471281,
+        "precision_macro": 0.5812418584455059,
+        "recall_macro": 0.674554367201426,
+        "f1_macro": 0.6091884057971014,
+        "false_positive_rate": 0.07450980392156863,
+        "confusion_matrix": [
+          [
+            236,
+            0,
+            19,
+            0
+          ],
+          [
+            0,
+            387,
+            0,
+            0
+          ],
+          [
+            5,
+            0,
+            17,
+            0
+          ],
+          [
+            4,
+            0,
+            11,
+            0
+          ]
+        ],
+        "per_class": {
+          "Benign": {
+            "precision": 0.963265306122449,
+            "recall": 0.9254901960784314,
+            "f1-score": 0.944,
+            "support": 255.0
+          },
+          "C&C": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1-score": 1.0,
+            "support": 387.0
+          },
+          "DDoS": {
+            "precision": 0.3617021276595745,
+            "recall": 0.7727272727272727,
+            "f1-score": 0.4927536231884058,
+            "support": 22.0
+          },
+          "PartOfAHorizontalPortScan": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1-score": 0.0,
+            "support": 15.0
+          },
+          "accuracy": 0.9425625920471281,
+          "macro avg": {
+            "precision": 0.5812418584455059,
+            "recall": 0.674554367201426,
+            "f1-score": 0.6091884057971014,
+            "support": 679.0
+          },
+          "weighted avg": {
+            "precision": 0.9434316640202285,
+            "recall": 0.9425625920471281,
+            "f1-score": 0.9404426799854859,
+            "support": 679.0
+          }
+        },
+        "log_loss": 0.12966428603718683
+      },
+      "latency": {
+        "single_flow_p50_ms": 31.695750076323748,
+        "single_flow_p95_ms": 32.299870054703206,
+        "batch_flows_per_second": 13049.736978808987,
+        "batch_size": 679,
+        "includes": "preprocessing + classification; excludes capture/flow wait, DB and XAI"
+      },
+      "parameters": {
+        "categorical_features": "from_dtype",
+        "class_weight": null,
+        "early_stopping": "auto",
+        "interaction_cst": null,
+        "l2_regularization": 1,
+        "learning_rate": 0.1,
+        "loss": "log_loss",
+        "max_bins": 255,
+        "max_depth": null,
+        "max_features": 1.0,
+        "max_iter": 120,
+        "max_leaf_nodes": 15,
+        "min_samples_leaf": 20,
+        "monotonic_cst": null,
+        "n_iter_no_change": 10,
+        "random_state": 42,
+        "scoring": "loss",
+        "tol": 1e-07,
+        "validation_fraction": 0.1,
+        "verbose": 0,
+        "warm_start": false
+      }
+    },
+    {
+      "name": "CNN-BiLSTM",
+      "training_seconds": 37.95529459998943,
+      "validation": {
+        "f1_macro": 0.5426713628537524
+      },
+      "test": {
+        "accuracy": 0.9101620029455081,
+        "precision_macro": 0.560145622602023,
+        "recall_macro": 0.7161118711050312,
+        "f1_macro": 0.5803396484995186,
+        "false_positive_rate": 0.10196078431372549,
+        "confusion_matrix": [
+          [
+            229,
+            2,
+            0,
+            24
+          ],
+          [
+            0,
+            374,
+            13,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            22
+          ],
+          [
+            0,
+            0,
+            0,
+            15
+          ]
+        ],
+        "per_class": {
+          "Benign": {
+            "precision": 1.0,
+            "recall": 0.8980392156862745,
+            "f1-score": 0.9462809917355371,
+            "support": 255.0
+          },
+          "C&C": {
+            "precision": 0.9946808510638298,
+            "recall": 0.9664082687338501,
+            "f1-score": 0.9803407601572739,
+            "support": 387.0
+          },
+          "DDoS": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1-score": 0.0,
+            "support": 22.0
+          },
+          "PartOfAHorizontalPortScan": {
+            "precision": 0.2459016393442623,
+            "recall": 1.0,
+            "f1-score": 0.39473684210526316,
+            "support": 15.0
+          },
+          "accuracy": 0.9101620029455081,
+          "macro avg": {
+            "precision": 0.560145622602023,
+            "recall": 0.7161118711050312,
+            "f1-score": 0.5803396484995186,
+            "support": 679.0
+          },
+          "weighted avg": {
+            "precision": 0.9479087097965627,
+            "recall": 0.9101620029455081,
+            "f1-score": 0.9228491600957377,
+            "support": 679.0
+          }
+        },
+        "log_loss": 0.20916083398836688
+      },
+      "latency": {
+        "batch_flows_per_second": 8224.56079233669,
+        "batch_size": 679,
+        "includes": "tensor model inference; excludes feature extraction"
+      },
+      "temperature": 1.5874010519681994,
+      "epochs": 12,
+      "history": [
+        {
+          "epoch": 1,
+          "train_loss_sum": 39.83081394433975,
+          "validation_f1_macro": 0.2686292124478843
+        },
+        {
+          "epoch": 2,
+          "train_loss_sum": 24.58002471923828,
+          "validation_f1_macro": 0.5375875342269264
+        },
+        {
+          "epoch": 3,
+          "train_loss_sum": 18.47058007121086,
+          "validation_f1_macro": 0.5425576085114817
+        },
+        {
+          "epoch": 4,
+          "train_loss_sum": 14.841154634952545,
+          "validation_f1_macro": 0.5425576085114817
+        },
+        {
+          "epoch": 5,
+          "train_loss_sum": 13.142501413822174,
+          "validation_f1_macro": 0.5425576085114817
+        },
+        {
+          "epoch": 6,
+          "train_loss_sum": 12.471744179725647,
+          "validation_f1_macro": 0.5425576085114817
+        },
+        {
+          "epoch": 7,
+          "train_loss_sum": 12.203589051961899,
+          "validation_f1_macro": 0.5425576085114817
+        },
+        {
+          "epoch": 8,
+          "train_loss_sum": 11.921155020594597,
+          "validation_f1_macro": 0.5425576085114817
+        },
+        {
+          "epoch": 9,
+          "train_loss_sum": 11.934715941548347,
+          "validation_f1_macro": 0.5425576085114817
+        },
+        {
+          "epoch": 10,
+          "train_loss_sum": 11.896773546934128,
+          "validation_f1_macro": 0.5426713628537524
+        },
+        {
+          "epoch": 11,
+          "train_loss_sum": 11.783296823501587,
+          "validation_f1_macro": 0.5426713628537524
+        },
+        {
+          "epoch": 12,
+          "train_loss_sum": 11.588805004954338,
+          "validation_f1_macro": 0.5426713628537524
+        }
+      ],
+      "representation": "first 32 chronological packets; direction/log IP bytes/log IAT/flags; packed BiLSTM lengths"
+    }
+  ],
+  "resources": {
+    "wall_seconds": 82.43913239985704,
+    "cpu_seconds": 90.5,
+    "rss_bytes": 506998784,
+    "platform": "Windows-11-10.0.26200-SP0",
+    "python": "3.12.15",
+    "logical_cpus": 8
+  },
+  "xai_measurement": {
+    "method": "SHAP permutation",
+    "first_call_ms": 17293.6760999728,
+    "background_size": 16,
+    "scope": "one held-out flow; not an analyst usefulness study"
+  },
+  "research_status": {
+    "RQ1": "measured within scenario",
+    "RQ2": "measured, representation differs",
+    "RQ3": "shared extractor + parity tests",
+    "RQ4": "real SHAP; usefulness study outstanding",
+    "RQ5": "model latency measured; live pipeline measured separately",
+    "RQ6": "policy simulation tested; evaluation recorded separately"
+  }
+}

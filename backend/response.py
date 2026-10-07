@@ -19,7 +19,8 @@ def firewall_arguments(action,ip):
 
 class ResponseService:
     def __init__(self,store,active_enabled=False,protected=()):
-        self.store=store;self.active_enabled=active_enabled;self.protected=set(protected);self.lock=threading.RLock()
+        self.store=store;self.active_enabled=False;self.protected=set(protected);self.lock=threading.RLock()
+        # ACTIVE cannot be enabled until crash-safe intent/execution reconciliation is validated.
 
     def _validate(self,s,action,ip):
         address=ipaddress.ip_address(ip)

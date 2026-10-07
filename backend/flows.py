@@ -5,7 +5,7 @@ import math
 import statistics
 import uuid
 
-SCHEMA_VERSION = 'ip-flow-v1'
+SCHEMA_VERSION = 'ip-flow-v2'
 FLOW_POLICY = {'idle_timeout':30.0,'active_timeout':120.0,'max_packets':256,
                'direction':'first-observed','bytes':'IP-layer','sequence_length':32}
 FEATURE_NAMES = ['duration_s','protocol','fwd_packets','bwd_packets','fwd_bytes','bwd_bytes',

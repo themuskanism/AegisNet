@@ -1,0 +1,70 @@
+{
+  "scope": "held-out flows of one IoT-23 scenario; recommendations only, no firewall changes",
+  "rows": 679,
+  "model_version": "iot23-34-20261007T140413Z",
+  "confidence_policy": "predicted malicious AND selected-class confidence >= 0.90",
+  "risk_policy": "documented risk >= 65 (HIGH/CRITICAL)",
+  "recurrence": "previous predicted malicious test flows from same source in preceding 300 seconds of original capture time",
+  "confidence_only": {
+    "recommendations": 394,
+    "true_malicious_recommended": 391,
+    "benign_recommended": 3,
+    "malicious_not_recommended": 33,
+    "precision": 0.9923857868020305,
+    "malicious_coverage": 0.9221698113207547,
+    "benign_recommendation_rate": 0.011764705882352941
+  },
+  "risk_aware": {
+    "recommendations": 183,
+    "true_malicious_recommended": 161,
+    "benign_recommended": 22,
+    "malicious_not_recommended": 263,
+    "precision": 0.8797814207650273,
+    "malicious_coverage": 0.37971698113207547,
+    "benign_recommendation_rate": 0.08627450980392157
+  },
+  "risk_threshold_sensitivity": {
+    "55": {
+      "recommendations": 446,
+      "true_malicious_recommended": 422,
+      "benign_recommended": 24,
+      "malicious_not_recommended": 2,
+      "precision": 0.9461883408071748,
+      "malicious_coverage": 0.9952830188679245,
+      "benign_recommendation_rate": 0.09411764705882353
+    },
+    "65": {
+      "recommendations": 183,
+      "true_malicious_recommended": 161,
+      "benign_recommended": 22,
+      "malicious_not_recommended": 263,
+      "precision": 0.8797814207650273,
+      "malicious_coverage": 0.37971698113207547,
+      "benign_recommendation_rate": 0.08627450980392157
+    },
+    "75": {
+      "recommendations": 95,
+      "true_malicious_recommended": 73,
+      "benign_recommended": 22,
+      "malicious_not_recommended": 351,
+      "precision": 0.7684210526315789,
+      "malicious_coverage": 0.1721698113207547,
+      "benign_recommendation_rate": 0.08627450980392157
+    },
+    "85": {
+      "recommendations": 35,
+      "true_malicious_recommended": 23,
+      "benign_recommended": 12,
+      "malicious_not_recommended": 401,
+      "precision": 0.6571428571428571,
+      "malicious_coverage": 0.054245283018867926,
+      "benign_recommendation_rate": 0.047058823529411764
+    }
+  },
+  "limitations": [
+    "Not causal evidence that automated blocking prevents harm.",
+    "Response address protections are applied by the service; these recommendation counts precede those safeguards.",
+    "One scenario and sparse minority classes; no claim that the risk policy dominates.",
+    "Thresholds and weights are documented expert choices, not learned operational utility."
+  ]
+}

@@ -84,3 +84,15 @@ def test_capacity_is_bounded_and_fin_closes_flow():
     p = packet(3); p[TCP].sport=5678; p[TCP].flags="R"
     assert len(b.add(parse(p))) == 1
     assert not b.flows
+
+
+def test_quoted_tcp_inside_icmp_is_not_a_transport_flow():
+    from scapy.all import ICMP
+    parse,_,_=api()
+    quoted=IP(src='192.0.2.1',dst='198.51.100.2')/ICMP(type=3)/IP()/TCP()
+    assert parse(quoted) is None
+
+def test_ipv6_quoted_ipv4_transport_is_not_a_flow():
+    from scapy.layers.inet6 import ICMPv6DestUnreach
+    parse,_,_=api()
+    assert parse(IPv6()/ICMPv6DestUnreach()/IP()/UDP()) is None

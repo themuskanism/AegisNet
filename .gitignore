@@ -16,4 +16,8 @@ artifacts/*.pcap
 .pytest_cache/
 .ruff_cache/
 .superpowers/
+artifacts/records.jsonl
+*.tsbuildinfo
+data/analyst-token.txt
+*.partial
 *.log

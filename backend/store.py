@@ -1,6 +1,5 @@
 """Relational records with JSON evidence snapshots; PostgreSQL is the deployment backend."""
 from contextlib import contextmanager
-from datetime import datetime, timezone
 import time
 import uuid
 from sqlalchemy import create_engine, String, Float, JSON, ForeignKey, select, func, text

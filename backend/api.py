@@ -74,7 +74,10 @@ def create_app(database_url=None,artifacts=None,token=None):
     @app.get('/api/interfaces')
     def interfaces():
         from scapy.all import get_if_list,conf
-        return [{'id':i,'name':getattr(conf.ifaces.dev_from_networkname(i),'description',i)} for i in get_if_list()]
+        try:return [{'id':i,'name':getattr(conf.ifaces.dev_from_networkname(i),'description',i)} for i in get_if_list()]
+        except Exception as exc:
+            runtime.errors['capture_interfaces']=str(exc)
+            return []
     @app.get('/api/flows')
     def flows():return call(store.observations)
     @app.get('/api/incidents')
@@ -99,14 +102,18 @@ def create_app(database_url=None,artifacts=None,token=None):
     def events():return call(store.events)
     @app.get('/api/model')
     def model():
-        path=artifacts/'evaluation.json'
-        return {'status':'ready' if runtime.detector.ready else 'unavailable','metadata':runtime.detector.metadata,'evaluation':json.loads(path.read_text()) if path.exists() else None}
+        def artifact(name):
+            path=artifacts/(name+'.json')
+            try:return json.loads(path.read_text()) if path.exists() else None
+            except (OSError,ValueError) as exc:
+                runtime.errors[name]=str(exc);return None
+        return {'status':'ready' if runtime.detector.ready else 'unavailable','metadata':runtime.detector.metadata,'evaluation':artifact('evaluation'),'operational':artifact('operational_evaluation'),'policy':artifact('policy_evaluation')}
     @app.get('/api/overview')
     @app.get('/api/traffic')
     def overview():
         def data():
             rows=store.observations();incs=store.incidents()
-            return {'totals':store.counts(),'session':runtime.counters.copy(),'health':runtime.health(),'packet_rates':list(runtime.rates),'recent_incidents':incs[:8],'risk_distribution':dict(Counter(i['risk']['level'] for i in incs)),'attack_distribution':dict(Counter(i['prediction']['label'] for i in incs)),'sources':dict(Counter(i['flow']['source'] for i in incs).most_common(6)),'provenance':dict(Counter(r['provenance'] for r in rows)),'distribution_scope':'most recent 200 persisted records','pipeline_latency_ms':list(runtime.latencies),'updated_at':time.time()}
+            return {'totals':store.counts(),'session':runtime.counters.copy(),'health':runtime.health(),'packet_rates':list(runtime.rates),'recent_incidents':incs[:8],'risk_distribution':dict(Counter(i['risk']['level'] for i in incs)),'attack_distribution':dict(Counter(i['prediction']['label'] for i in incs)),'sources':dict(Counter(i['flow']['source'] for i in incs).most_common(6)),'provenance':dict(Counter(r['provenance'] for r in rows)),'distribution_scope':'most recent 200 persisted records','service_latency_ms':list(runtime.latencies),'queue_latency_ms':list(runtime.queue_latencies),'live_completion_wait_seconds':list(runtime.completion_waits),'updated_at':time.time()}
         return call(data)
     @app.get('/api/stream')
     async def stream(request:Request):

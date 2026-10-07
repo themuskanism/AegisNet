@@ -1,0 +1,69 @@
+{
+  "verified_at": 1791383283.7190077,
+  "database": {
+    "status": "ready",
+    "engine": "postgresql",
+    "local_test_mode": false
+  },
+  "model_version": "iot23-34-20261007T140413Z",
+  "replay_flows": 12,
+  "incident_id": "134e00653b5041349908dd90803aab3a",
+  "explanation_method": "SHAP permutation",
+  "explanation_ms": 124.51669992879033,
+  "shap_reconstruction_absolute_error": 3.3306690738754696e-16,
+  "manual_approval_status": "simulated",
+  "repeat_approval_idempotent": true,
+  "actual_firewall_blocks": 0,
+  "replay_predictions": [
+    "Benign",
+    "Benign",
+    "Benign",
+    "C&C",
+    "C&C",
+    "C&C",
+    "PartOfAHorizontalPortScan",
+    "DDoS",
+    "DDoS",
+    "DDoS",
+    "DDoS",
+    "DDoS"
+  ],
+  "live": {
+    "status": "verified",
+    "interface": "\\Device\\NPF_Loopback",
+    "safe_http_requests": 10,
+    "elapsed_seconds": 3.873308200156316,
+    "persisted_live_flows": 27,
+    "capture_state_after": "stopped",
+    "counters": {
+      "packets": 1110,
+      "unsupported_packets": 0,
+      "packet_drops": 0,
+      "flow_drops": 0,
+      "flows_processed": 40,
+      "inference_errors": 0,
+      "database_errors": 0,
+      "xai_errors": 0
+    }
+  },
+  "service_latency_ms": {
+    "samples": 40,
+    "p50": 72.14985007885844,
+    "p95": 119.89201999967915
+  },
+  "queue_latency_ms": {
+    "samples": 40,
+    "p50": 12.926599942147732,
+    "p95": 1205.4479101207105
+  },
+  "flow_completion_wait_seconds": {
+    "samples": 28,
+    "p50": 1.878141164779663,
+    "p95": 2.449390780925751
+  },
+  "limitations": [
+    "Loopback functional verification; not production-link throughput or packet-loss capacity testing.",
+    "Service latency combines feature extraction, inference and DB write; flow completion and queue waits reported separately.",
+    "Shared process traffic from API requests can also be captured on loopback."
+  ]
+}
