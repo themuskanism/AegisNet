@@ -3,3 +3,17 @@ venv/
 __pycache__/
 *.pyc
 data/*.csv
+.venv/
+node_modules/
+frontend/dist/
+data/benchmark/
+data/*.db*
+data/*.jsonl
+artifacts/*.joblib
+artifacts/*.pt
+artifacts/*.npz
+artifacts/*.pcap
+.pytest_cache/
+.ruff_cache/
+.superpowers/
+*.log
