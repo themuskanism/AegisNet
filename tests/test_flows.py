@@ -96,3 +96,12 @@ def test_ipv6_quoted_ipv4_transport_is_not_a_flow():
     from scapy.layers.inet6 import ICMPv6DestUnreach
     parse,_,_=api()
     assert parse(IPv6()/ICMPv6DestUnreach()/IP()/UDP()) is None
+
+def test_link_padding_is_excluded_and_truncated_datagrams_are_rejected():
+    parse,_,_=api()
+    raw=bytes(Ether()/IP()/TCP())
+    assert parse(Ether(raw)).ip_bytes==parse(Ether(raw+b'\0'*6)).ip_bytes==40
+    p=Ether(raw);p[IP].len=200
+    assert parse(p) is None
+    raw6=bytes(Ether()/IPv6()/UDP())
+    assert parse(Ether(raw6+b'\0'*6)).ip_bytes==48

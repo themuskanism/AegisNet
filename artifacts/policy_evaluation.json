@@ -1,27 +1,27 @@
 {
   "scope": "held-out flows of one IoT-23 scenario; recommendations only, no firewall changes",
   "rows": 679,
-  "model_version": "iot23-34-20261007T140413Z",
+  "model_version": "iot23-34-20261007T191024Z",
   "confidence_policy": "predicted malicious AND selected-class confidence >= 0.90",
   "risk_policy": "documented risk >= 65 (HIGH/CRITICAL)",
   "recurrence": "previous predicted malicious test flows from same source in preceding 300 seconds of original capture time",
   "confidence_only": {
-    "recommendations": 394,
-    "true_malicious_recommended": 391,
+    "recommendations": 393,
+    "true_malicious_recommended": 390,
     "benign_recommended": 3,
-    "malicious_not_recommended": 33,
-    "precision": 0.9923857868020305,
-    "malicious_coverage": 0.9221698113207547,
+    "malicious_not_recommended": 34,
+    "precision": 0.9923664122137404,
+    "malicious_coverage": 0.9198113207547169,
     "benign_recommendation_rate": 0.011764705882352941
   },
   "risk_aware": {
-    "recommendations": 183,
+    "recommendations": 184,
     "true_malicious_recommended": 161,
-    "benign_recommended": 22,
+    "benign_recommended": 23,
     "malicious_not_recommended": 263,
-    "precision": 0.8797814207650273,
+    "precision": 0.875,
     "malicious_coverage": 0.37971698113207547,
-    "benign_recommendation_rate": 0.08627450980392157
+    "benign_recommendation_rate": 0.09019607843137255
   },
   "risk_threshold_sensitivity": {
     "55": {
@@ -34,30 +34,30 @@
       "benign_recommendation_rate": 0.09411764705882353
     },
     "65": {
-      "recommendations": 183,
+      "recommendations": 184,
       "true_malicious_recommended": 161,
-      "benign_recommended": 22,
+      "benign_recommended": 23,
       "malicious_not_recommended": 263,
-      "precision": 0.8797814207650273,
+      "precision": 0.875,
       "malicious_coverage": 0.37971698113207547,
-      "benign_recommendation_rate": 0.08627450980392157
+      "benign_recommendation_rate": 0.09019607843137255
     },
     "75": {
-      "recommendations": 95,
-      "true_malicious_recommended": 73,
-      "benign_recommended": 22,
-      "malicious_not_recommended": 351,
-      "precision": 0.7684210526315789,
-      "malicious_coverage": 0.1721698113207547,
-      "benign_recommendation_rate": 0.08627450980392157
+      "recommendations": 97,
+      "true_malicious_recommended": 74,
+      "benign_recommended": 23,
+      "malicious_not_recommended": 350,
+      "precision": 0.7628865979381443,
+      "malicious_coverage": 0.17452830188679244,
+      "benign_recommendation_rate": 0.09019607843137255
     },
     "85": {
-      "recommendations": 35,
-      "true_malicious_recommended": 23,
+      "recommendations": 34,
+      "true_malicious_recommended": 22,
       "benign_recommended": 12,
-      "malicious_not_recommended": 401,
-      "precision": 0.6571428571428571,
-      "malicious_coverage": 0.054245283018867926,
+      "malicious_not_recommended": 402,
+      "precision": 0.6470588235294118,
+      "malicious_coverage": 0.05188679245283019,
       "benign_recommendation_rate": 0.047058823529411764
     }
   },

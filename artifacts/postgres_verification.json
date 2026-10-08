@@ -1,0 +1,8 @@
+{
+  "verified_at": 1791400140.5114334,
+  "postgres_version": "18.6",
+  "migration_upgrade_downgrade_upgrade": "passed",
+  "new_connection_persistence": "passed",
+  "manual_approval_idempotency": "passed",
+  "scope": "new disposable database; existing database untouched"
+}

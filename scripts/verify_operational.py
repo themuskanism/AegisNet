@@ -61,7 +61,8 @@ def verify(url,token,out,live):
             def log_message(self,*args):pass
         server=ThreadingHTTPServer(('127.0.0.1',0),Handler)
         thread=threading.Thread(target=server.serve_forever,daemon=True);thread.start()
-        prior=get('/overview')['totals']['flows'];post('/capture/start',{'interface':interface});start=time.perf_counter()
+        prior=get('/overview')['totals']['flows'];prior_ids={r['flow']['id'] for r in get('/flows')}
+        post('/capture/start',{'interface':interface});start=time.perf_counter()
         try:
             with httpx.Client(trust_env=False) as local:
                 for _ in range(10):local.get(f'http://127.0.0.1:{server.server_port}/');time.sleep(.1)
@@ -71,7 +72,7 @@ def verify(url,token,out,live):
         while time.monotonic()<end:
             if get('/overview')['totals']['flows']>prior and get('/health')['queues']['flows']==0:break
             time.sleep(.2)
-        overview=get('/overview');flows=[r for r in get('/flows') if r['provenance']=='live'];assert flows and all(r['prediction'] for r in flows)
+        overview=get('/overview');flows=[r for r in get('/flows') if r['provenance']=='live' and r['flow']['id'] not in prior_ids];assert flows and all(r['prediction'] for r in flows)
         live_result={'status':'verified','interface':interface,'safe_http_requests':10,'elapsed_seconds':time.perf_counter()-start,'persisted_live_flows':len(flows),'capture_state_after':get('/health')['capture']['status'],'counters':get('/health')['counters']}
     overview=get('/overview')
     def distribution(v):return {'samples':len(v),'p50':float(np.percentile(v,50)) if v else None,'p95':float(np.percentile(v,95)) if v else None}

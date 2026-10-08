@@ -1,4 +1,4 @@
-# Feature compatibility gate — ip-flow-v2
+# Feature compatibility gate — ip-flow-v3
 
 Dataset decision: IoT-23, CTU-IoT-Malware-Capture-34-1 (Mirai), official PCAP and original Zeek labels. This is a bounded benchmark scenario, NOT the whole IoT-23 corpus, CIC-IDS2017 or enterprise-network validation. Selected because original PCAP+labels can be processed with the same extractor as live Scapy. Supported classes determined after unambiguous label matching and split support checks.
 
@@ -23,4 +23,5 @@ Source: https://www.stratosphereips.org/datasets-iot23 ; DOI https://doi.org/10.
 Flow limits: idle 30s, active 120s, max 256 packets; first observed direction; TCP RST/bidirectional FIN/new established SYN closure. Fragments and non-TCP/UDP are excluded. Sequences retain first 32 chronological packets, direction, log1p(IP bytes), log1p(interarrival), 5 TCP flag bits; zero padding and true length. Features are computed on completed bounded flows, not arbitrary prefixes.
 
 Match a flow only when its complete time interval fits exactly one Zeek connection of the same unordered endpoint/protocol tuple within 1ms tolerance. Unmatched/ambiguous flows are excluded, counted and reported. All windows of a matched UID stay together. Identical feature vectors are unioned into the same split group, including connected UID groups. Deterministic group split 60/20/20; this is within-scenario generalization, not chronological or cross-scenario proof. Report class support and reject unsupported partitions. Train-only scaler; validation-only calibration/model selection; test evaluated once after selection. No oversampling before splitting.
+
 

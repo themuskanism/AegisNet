@@ -49,6 +49,13 @@ def test_active_disabled_by_default(tmp_path):
     s,r=system(tmp_path)
     with pytest.raises(ValueError,match='disabled'): r.request('block','8.8.4.4','test',mode='ACTIVE')
 
+def test_active_cannot_be_enabled_before_adapter_validation(tmp_path):
+    from backend.response import ResponseService
+    s,_=system(tmp_path)
+    r=ResponseService(s,active_enabled=True)
+    with pytest.raises(ValueError,match='disabled'):r.request('block','8.8.4.4','test',mode='ACTIVE')
+    assert not r.active_enabled
+
 
 def test_risk_is_not_confidence_and_is_monotonic():
     assert importlib.util.find_spec('backend.risk'), 'risk policy is required'

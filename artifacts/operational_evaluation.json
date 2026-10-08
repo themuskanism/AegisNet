@@ -1,16 +1,16 @@
 {
-  "verified_at": 1791383283.7190077,
+  "verified_at": 1791422255.814135,
   "database": {
     "status": "ready",
     "engine": "postgresql",
     "local_test_mode": false
   },
-  "model_version": "iot23-34-20261007T140413Z",
+  "model_version": "iot23-34-20261007T191024Z",
   "replay_flows": 12,
-  "incident_id": "134e00653b5041349908dd90803aab3a",
+  "incident_id": "f41570e31be243baad227d66629195fd",
   "explanation_method": "SHAP permutation",
-  "explanation_ms": 124.51669992879033,
-  "shap_reconstruction_absolute_error": 3.3306690738754696e-16,
+  "explanation_ms": 176.5393998939544,
+  "shap_reconstruction_absolute_error": 1.1102230246251565e-16,
   "manual_approval_status": "simulated",
   "repeat_approval_idempotent": true,
   "actual_firewall_blocks": 0,
@@ -32,34 +32,34 @@
     "status": "verified",
     "interface": "\\Device\\NPF_Loopback",
     "safe_http_requests": 10,
-    "elapsed_seconds": 3.873308200156316,
-    "persisted_live_flows": 27,
+    "elapsed_seconds": 7.636677699862048,
+    "persisted_live_flows": 35,
     "capture_state_after": "stopped",
     "counters": {
-      "packets": 1110,
-      "unsupported_packets": 0,
+      "packets": 1135,
+      "unsupported_packets": 4,
       "packet_drops": 0,
       "flow_drops": 0,
-      "flows_processed": 40,
+      "flows_processed": 59,
       "inference_errors": 0,
       "database_errors": 0,
       "xai_errors": 0
     }
   },
   "service_latency_ms": {
-    "samples": 40,
-    "p50": 72.14985007885844,
-    "p95": 119.89201999967915
+    "samples": 59,
+    "p50": 128.52509994991124,
+    "p95": 224.47681985795455
   },
   "queue_latency_ms": {
-    "samples": 40,
-    "p50": 12.926599942147732,
-    "p95": 1205.4479101207105
+    "samples": 59,
+    "p50": 36.1741001252085,
+    "p95": 4353.203969937748
   },
   "flow_completion_wait_seconds": {
-    "samples": 28,
-    "p50": 1.878141164779663,
-    "p95": 2.449390780925751
+    "samples": 35,
+    "p50": 1.5063872337341309,
+    "p95": 2.3985695123672484
   },
   "limitations": [
     "Loopback functional verification; not production-link throughput or packet-loss capacity testing.",

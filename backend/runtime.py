@@ -80,7 +80,10 @@ class Runtime:
         return self.capture.copy()
 
     def _submit(self,f,provenance):
-        try:self.flow_queue.put_nowait((f,provenance,time.perf_counter()))
+        try:
+            completed_at=time.time()
+            self.flow_queue.put_nowait((f,provenance,time.perf_counter()))
+            if provenance=='live':self.completion_waits.append(max(0,completed_at-f.start))
         except Full:self.counters['flow_drops']+=1
 
     def _flow_loop(self):
@@ -105,7 +108,6 @@ class Runtime:
             except Empty:continue
             try:
                 start=time.perf_counter();self.queue_latencies.append((start-queued_at)*1000)
-                if provenance=='live':self.completion_waits.append(max(0,time.time()-f.start))
                 values=features(f);prediction=None;risk=None
                 if self.detector.ready:
                     try:

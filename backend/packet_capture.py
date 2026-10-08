@@ -28,8 +28,13 @@ def packet_metadata(packet):
         timestamp = float(packet.time)
         if not math.isfinite(timestamp) or timestamp < 0:
             return None
+        captured_length=len(ip)
+        declared=(ip.len if ip.len is not None else captured_length) if isinstance(ip,IP) else (40+ip.plen if ip.plen is not None else captured_length)
+        minimum=(4*(ip.ihl or 5) if isinstance(ip,IP) else 40)+(4*(transport.dataofs or 5) if isinstance(transport,TCP) else 8)
+        if not minimum<=declared<=captured_length:
+            return None  # Truncation and inconsistent lengths are not reproducible full datagrams.
         return Packet(timestamp, ip.src, ip.dst, int(transport.sport), int(transport.dport),
-                      6 if isinstance(transport,TCP) else 17, len(ip), int(transport.flags) if isinstance(transport,TCP) else 0,
+                      6 if isinstance(transport,TCP) else 17, declared, int(transport.flags) if isinstance(transport,TCP) else 0,
                       4 if isinstance(ip, IP) else 6)
     except (ValueError, TypeError, AttributeError, OverflowError):
         return None

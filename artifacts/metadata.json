@@ -1,6 +1,6 @@
 {
-  "version": "iot23-34-20261007T140413Z",
-  "schema": "ip-flow-v2",
+  "version": "iot23-34-20261007T191024Z",
+  "schema": "ip-flow-v3",
   "features": [
     "duration_s",
     "protocol",
@@ -39,8 +39,8 @@
   ],
   "model": "Random Forest",
   "dataset": "IoT-23 / CTU-IoT-Malware-Capture-34-1",
-  "experiment_date": "2026-10-07T14:04:13.544291+00:00",
-  "sha256": "dccc6b52e04e93f180e62a051db3fd0441ca233864de4a2fd69e83d3197df32d",
+  "experiment_date": "2026-10-07T19:10:24.086583+00:00",
+  "sha256": "1444158a9945403f5f747de469fc5c227cad997c895fbb74cbfe06cebc25b196",
   "selection": "Best validation macro-F1 among calibrated tabular baselines. Operational tabular model supports bounded full-pipeline SHAP; CNN-BiLSTM remains evaluated research candidate, not claimed superior.",
   "limitations": [
     "One IoT scenario; not cross-scenario or enterprise validation.",

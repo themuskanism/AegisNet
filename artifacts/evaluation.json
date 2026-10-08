@@ -1,7 +1,7 @@
 {
   "metadata": {
-    "version": "iot23-34-20261007T140413Z",
-    "schema": "ip-flow-v2",
+    "version": "iot23-34-20261007T191024Z",
+    "schema": "ip-flow-v3",
     "features": [
       "duration_s",
       "protocol",
@@ -40,8 +40,8 @@
     ],
     "model": "Random Forest",
     "dataset": "IoT-23 / CTU-IoT-Malware-Capture-34-1",
-    "experiment_date": "2026-10-07T14:04:13.544291+00:00",
-    "sha256": "dccc6b52e04e93f180e62a051db3fd0441ca233864de4a2fd69e83d3197df32d",
+    "experiment_date": "2026-10-07T19:10:24.086583+00:00",
+    "sha256": "1444158a9945403f5f747de469fc5c227cad997c895fbb74cbfe06cebc25b196",
     "selection": "Best validation macro-F1 among calibrated tabular baselines. Operational tabular model supports bounded full-pipeline SHAP; CNN-BiLSTM remains evaluated research candidate, not claimed superior.",
     "limitations": [
       "One IoT scenario; not cross-scenario or enterprise validation.",
@@ -113,7 +113,7 @@
   "experiments": [
     {
       "name": "Logistic Regression",
-      "training_seconds": 0.4685890998225659,
+      "training_seconds": 0.681626700097695,
       "validation": {
         "accuracy": 0.9412650602409639,
         "precision_macro": 0.6233766233766234,
@@ -257,12 +257,12 @@
             "support": 679.0
           }
         },
-        "log_loss": 0.29260543688865404
+        "log_loss": 0.2948030977632792
       },
       "latency": {
-        "single_flow_p50_ms": 2.5448498781770468,
-        "single_flow_p95_ms": 3.1612798455171287,
-        "batch_flows_per_second": 234396.56164779273,
+        "single_flow_p50_ms": 2.72534997202456,
+        "single_flow_p95_ms": 4.403825115878135,
+        "batch_flows_per_second": 179018.68685362933,
         "batch_size": 679,
         "includes": "preprocessing + classification; excludes capture/flow wait, DB and XAI"
       },
@@ -286,19 +286,19 @@
     },
     {
       "name": "Random Forest",
-      "training_seconds": 1.054444900015369,
+      "training_seconds": 1.3699646999593824,
       "validation": {
         "accuracy": 0.9307228915662651,
-        "precision_macro": 0.6859110442629995,
+        "precision_macro": 0.6862504107788368,
         "recall_macro": 0.7834490605671606,
-        "f1_macro": 0.712423813986314,
+        "f1_macro": 0.7135192659244626,
         "false_positive_rate": 0.13170731707317074,
         "confusion_matrix": [
           [
             178,
             0,
-            22,
-            5
+            23,
+            4
           ],
           [
             1,
@@ -333,44 +333,44 @@
             "support": 410.0
           },
           "DDoS": {
-            "precision": 0.48,
+            "precision": 0.47058823529411764,
             "recall": 0.631578947368421,
-            "f1-score": 0.5454545454545454,
+            "f1-score": 0.5393258426966292,
             "support": 38.0
           },
           "PartOfAHorizontalPortScan": {
-            "precision": 0.2692307692307692,
+            "precision": 0.28,
             "recall": 0.6363636363636364,
-            "f1-score": 0.3783783783783784,
+            "f1-score": 0.3888888888888889,
             "support": 11.0
           },
           "accuracy": 0.9307228915662651,
           "macro avg": {
-            "precision": 0.6859110442629995,
+            "precision": 0.6862504107788368,
             "recall": 0.7834490605671606,
-            "f1-score": 0.712423813986314,
+            "f1-score": 0.7135192659244626,
             "support": 664.0
           },
           "weighted avg": {
-            "precision": 0.956410070880859,
+            "precision": 0.9560498517236874,
             "recall": 0.9307228915662651,
-            "f1-score": 0.9404230537984305,
+            "f1-score": 0.9402464346882118,
             "support": 664.0
           }
         }
       },
       "test": {
-        "accuracy": 0.9381443298969072,
-        "precision_macro": 0.6384096328087745,
-        "recall_macro": 0.7029857397504456,
-        "f1_macro": 0.6464025500910746,
+        "accuracy": 0.9366715758468336,
+        "precision_macro": 0.6334096328087745,
+        "recall_macro": 0.6916221033868092,
+        "f1_macro": 0.6394581056466302,
         "false_positive_rate": 0.09411764705882353,
         "confusion_matrix": [
           [
             231,
             0,
-            20,
-            4
+            21,
+            3
           ],
           [
             0,
@@ -381,8 +381,8 @@
           [
             2,
             0,
-            17,
-            3
+            16,
+            4
           ],
           [
             0,
@@ -405,9 +405,9 @@
             "support": 387.0
           },
           "DDoS": {
-            "precision": 0.34,
-            "recall": 0.7727272727272727,
-            "f1-score": 0.4722222222222222,
+            "precision": 0.32,
+            "recall": 0.7272727272727273,
+            "f1-score": 0.4444444444444444,
             "support": 22.0
           },
           "PartOfAHorizontalPortScan": {
@@ -416,26 +416,26 @@
             "f1-score": 0.16666666666666666,
             "support": 15.0
           },
-          "accuracy": 0.9381443298969072,
+          "accuracy": 0.9366715758468336,
           "macro avg": {
-            "precision": 0.6384096328087745,
-            "recall": 0.7029857397504456,
-            "f1-score": 0.6464025500910746,
+            "precision": 0.6334096328087745,
+            "recall": 0.6916221033868092,
+            "f1-score": 0.6394581056466302,
             "support": 679.0
           },
           "weighted avg": {
-            "precision": 0.958209855863942,
-            "recall": 0.9381443298969072,
-            "f1-score": 0.9444813303609991,
+            "precision": 0.9575618440819096,
+            "recall": 0.9366715758468336,
+            "f1-score": 0.9435813139970652,
             "support": 679.0
           }
         },
-        "log_loss": 0.19209362561352522
+        "log_loss": 0.19159608748771742
       },
       "latency": {
-        "single_flow_p50_ms": 42.86319995298982,
-        "single_flow_p95_ms": 54.11877994192764,
-        "batch_flows_per_second": 12356.058280790117,
+        "single_flow_p50_ms": 58.97650006227195,
+        "single_flow_p95_ms": 84.4191950163804,
+        "batch_flows_per_second": 7539.250730824709,
         "batch_size": 679,
         "includes": "preprocessing + classification; excludes capture/flow wait, DB and XAI"
       },
@@ -463,18 +463,18 @@
     },
     {
       "name": "Histogram Gradient Boosting",
-      "training_seconds": 2.39391819993034,
+      "training_seconds": 3.0470474001485854,
       "validation": {
-        "accuracy": 0.9397590361445783,
-        "precision_macro": 0.7401350870956275,
-        "recall_macro": 0.6932664254872214,
-        "f1_macro": 0.6740348467322151,
-        "false_positive_rate": 0.1073170731707317,
+        "accuracy": 0.9382530120481928,
+        "precision_macro": 0.7357752653437932,
+        "recall_macro": 0.6813280429455012,
+        "f1_macro": 0.6678548942631755,
+        "false_positive_rate": 0.1024390243902439,
         "confusion_matrix": [
           [
-            183,
+            184,
             0,
-            22,
+            21,
             0
           ],
           [
@@ -484,9 +484,9 @@
             0
           ],
           [
-            7,
+            9,
             0,
-            30,
+            28,
             1
           ],
           [
@@ -498,9 +498,9 @@
         ],
         "per_class": {
           "Benign": {
-            "precision": 0.9432989690721649,
-            "recall": 0.8926829268292683,
-            "f1-score": 0.9172932330827067,
+            "precision": 0.934010152284264,
+            "recall": 0.8975609756097561,
+            "f1-score": 0.9154228855721394,
             "support": 205.0
           },
           "C&C": {
@@ -510,9 +510,9 @@
             "support": 410.0
           },
           "DDoS": {
-            "precision": 0.5172413793103449,
-            "recall": 0.7894736842105263,
-            "f1-score": 0.625,
+            "precision": 0.509090909090909,
+            "recall": 0.7368421052631579,
+            "f1-score": 0.6021505376344086,
             "support": 38.0
           },
           "PartOfAHorizontalPortScan": {
@@ -521,32 +521,32 @@
             "f1-score": 0.15384615384615385,
             "support": 11.0
           },
-          "accuracy": 0.9397590361445783,
+          "accuracy": 0.9382530120481928,
           "macro avg": {
-            "precision": 0.7401350870956275,
-            "recall": 0.6932664254872214,
-            "f1-score": 0.6740348467322151,
+            "precision": 0.7357752653437932,
+            "recall": 0.6813280429455012,
+            "f1-score": 0.6678548942631755,
             "support": 664.0
           },
           "weighted avg": {
-            "precision": 0.9465835257132333,
-            "recall": 0.9397590361445783,
-            "f1-score": 0.938987079027504,
+            "precision": 0.943249300848989,
+            "recall": 0.9382530120481928,
+            "f1-score": 0.937101987446843,
             "support": 664.0
           }
         }
       },
       "test": {
-        "accuracy": 0.9425625920471281,
-        "precision_macro": 0.5812418584455059,
-        "recall_macro": 0.674554367201426,
-        "f1_macro": 0.6091884057971014,
-        "false_positive_rate": 0.07450980392156863,
+        "accuracy": 0.9440353460972017,
+        "precision_macro": 0.5843229869545659,
+        "recall_macro": 0.6755347593582888,
+        "f1_macro": 0.6129214485342214,
+        "false_positive_rate": 0.07058823529411765,
         "confusion_matrix": [
           [
-            236,
+            237,
             0,
-            19,
+            18,
             0
           ],
           [
@@ -562,17 +562,17 @@
             0
           ],
           [
-            4,
+            5,
             0,
-            11,
+            10,
             0
           ]
         ],
         "per_class": {
           "Benign": {
-            "precision": 0.963265306122449,
-            "recall": 0.9254901960784314,
-            "f1-score": 0.944,
+            "precision": 0.9595141700404858,
+            "recall": 0.9294117647058824,
+            "f1-score": 0.9442231075697212,
             "support": 255.0
           },
           "C&C": {
@@ -582,9 +582,9 @@
             "support": 387.0
           },
           "DDoS": {
-            "precision": 0.3617021276595745,
+            "precision": 0.37777777777777777,
             "recall": 0.7727272727272727,
-            "f1-score": 0.4927536231884058,
+            "f1-score": 0.5074626865671642,
             "support": 22.0
           },
           "PartOfAHorizontalPortScan": {
@@ -593,26 +593,26 @@
             "f1-score": 0.0,
             "support": 15.0
           },
-          "accuracy": 0.9425625920471281,
+          "accuracy": 0.9440353460972017,
           "macro avg": {
-            "precision": 0.5812418584455059,
-            "recall": 0.674554367201426,
-            "f1-score": 0.6091884057971014,
+            "precision": 0.5843229869545659,
+            "recall": 0.6755347593582888,
+            "f1-score": 0.6129214485342214,
             "support": 679.0
           },
           "weighted avg": {
-            "precision": 0.9434316640202285,
-            "recall": 0.9425625920471281,
-            "f1-score": 0.9404426799854859,
+            "precision": 0.9425437768356921,
+            "recall": 0.9440353460972017,
+            "f1-score": 0.9410030508612025,
             "support": 679.0
           }
         },
-        "log_loss": 0.12966428603718683
+        "log_loss": 0.13194367756634465
       },
       "latency": {
-        "single_flow_p50_ms": 31.695750076323748,
-        "single_flow_p95_ms": 32.299870054703206,
-        "batch_flows_per_second": 13049.736978808987,
+        "single_flow_p50_ms": 35.60729988384992,
+        "single_flow_p95_ms": 58.43583493260667,
+        "batch_flows_per_second": 10990.771963257568,
         "batch_size": 679,
         "includes": "preprocessing + classification; excludes capture/flow wait, DB and XAI"
       },
@@ -642,15 +642,15 @@
     },
     {
       "name": "CNN-BiLSTM",
-      "training_seconds": 37.95529459998943,
+      "training_seconds": 48.131028400035575,
       "validation": {
         "f1_macro": 0.5426713628537524
       },
       "test": {
-        "accuracy": 0.9101620029455081,
-        "precision_macro": 0.560145622602023,
-        "recall_macro": 0.7161118711050312,
-        "f1_macro": 0.5803396484995186,
+        "accuracy": 0.9086892488954345,
+        "precision_macro": 0.5457387843216623,
+        "recall_macro": 0.7154658762729899,
+        "f1_macro": 0.5733545454091542,
         "false_positive_rate": 0.10196078431372549,
         "confusion_matrix": [
           [
@@ -660,9 +660,9 @@
             24
           ],
           [
+            14,
+            373,
             0,
-            374,
-            13,
             0
           ],
           [
@@ -680,15 +680,15 @@
         ],
         "per_class": {
           "Benign": {
-            "precision": 1.0,
+            "precision": 0.9423868312757202,
             "recall": 0.8980392156862745,
-            "f1-score": 0.9462809917355371,
+            "f1-score": 0.9196787148594378,
             "support": 255.0
           },
           "C&C": {
-            "precision": 0.9946808510638298,
-            "recall": 0.9664082687338501,
-            "f1-score": 0.9803407601572739,
+            "precision": 0.9946666666666667,
+            "recall": 0.9638242894056848,
+            "f1-score": 0.979002624671916,
             "support": 387.0
           },
           "DDoS": {
@@ -703,88 +703,88 @@
             "f1-score": 0.39473684210526316,
             "support": 15.0
           },
-          "accuracy": 0.9101620029455081,
+          "accuracy": 0.9086892488954345,
           "macro avg": {
-            "precision": 0.560145622602023,
-            "recall": 0.7161118711050312,
-            "f1-score": 0.5803396484995186,
+            "precision": 0.5457387843216623,
+            "recall": 0.7154658762729899,
+            "f1-score": 0.5733545454091542,
             "support": 679.0
           },
           "weighted avg": {
-            "precision": 0.9479087097965627,
-            "recall": 0.9101620029455081,
-            "f1-score": 0.9228491600957377,
+            "precision": 0.9262638682849377,
+            "recall": 0.9086892488954345,
+            "f1-score": 0.9120959361837513,
             "support": 679.0
           }
         },
-        "log_loss": 0.20916083398836688
+        "log_loss": 0.26816131193191084
       },
       "latency": {
-        "batch_flows_per_second": 8224.56079233669,
+        "batch_flows_per_second": 6280.936387292537,
         "batch_size": 679,
         "includes": "tensor model inference; excludes feature extraction"
       },
-      "temperature": 1.5874010519681994,
+      "temperature": 1.2599210498948732,
       "epochs": 12,
       "history": [
         {
           "epoch": 1,
-          "train_loss_sum": 39.83081394433975,
+          "train_loss_sum": 39.72806006669998,
           "validation_f1_macro": 0.2686292124478843
         },
         {
           "epoch": 2,
-          "train_loss_sum": 24.58002471923828,
+          "train_loss_sum": 24.59901362657547,
           "validation_f1_macro": 0.5375875342269264
         },
         {
           "epoch": 3,
-          "train_loss_sum": 18.47058007121086,
-          "validation_f1_macro": 0.5425576085114817
+          "train_loss_sum": 18.796859085559845,
+          "validation_f1_macro": 0.5426713628537524
         },
         {
           "epoch": 4,
-          "train_loss_sum": 14.841154634952545,
-          "validation_f1_macro": 0.5425576085114817
+          "train_loss_sum": 14.733125060796738,
+          "validation_f1_macro": 0.5426713628537524
         },
         {
           "epoch": 5,
-          "train_loss_sum": 13.142501413822174,
-          "validation_f1_macro": 0.5425576085114817
+          "train_loss_sum": 12.973698616027832,
+          "validation_f1_macro": 0.5426713628537524
         },
         {
           "epoch": 6,
-          "train_loss_sum": 12.471744179725647,
-          "validation_f1_macro": 0.5425576085114817
+          "train_loss_sum": 12.39147375524044,
+          "validation_f1_macro": 0.5426713628537524
         },
         {
           "epoch": 7,
-          "train_loss_sum": 12.203589051961899,
-          "validation_f1_macro": 0.5425576085114817
+          "train_loss_sum": 12.150707989931107,
+          "validation_f1_macro": 0.5426713628537524
         },
         {
           "epoch": 8,
-          "train_loss_sum": 11.921155020594597,
-          "validation_f1_macro": 0.5425576085114817
+          "train_loss_sum": 11.892479732632637,
+          "validation_f1_macro": 0.5426713628537524
         },
         {
           "epoch": 9,
-          "train_loss_sum": 11.934715941548347,
-          "validation_f1_macro": 0.5425576085114817
+          "train_loss_sum": 11.914232701063156,
+          "validation_f1_macro": 0.5426713628537524
         },
         {
           "epoch": 10,
-          "train_loss_sum": 11.896773546934128,
+          "train_loss_sum": 11.872193768620491,
           "validation_f1_macro": 0.5426713628537524
         },
         {
           "epoch": 11,
-          "train_loss_sum": 11.783296823501587,
+          "train_loss_sum": 11.782615050673485,
           "validation_f1_macro": 0.5426713628537524
         },
         {
           "epoch": 12,
-          "train_loss_sum": 11.588805004954338,
+          "train_loss_sum": 11.599277168512344,
           "validation_f1_macro": 0.5426713628537524
         }
       ],
@@ -792,16 +792,16 @@
     }
   ],
   "resources": {
-    "wall_seconds": 82.43913239985704,
-    "cpu_seconds": 90.5,
-    "rss_bytes": 506998784,
+    "wall_seconds": 113.4189981999807,
+    "cpu_seconds": 103.859375,
+    "rss_bytes": 503824384,
     "platform": "Windows-11-10.0.26200-SP0",
     "python": "3.12.15",
     "logical_cpus": 8
   },
   "xai_measurement": {
     "method": "SHAP permutation",
-    "first_call_ms": 17293.6760999728,
+    "first_call_ms": 27175.296700093895,
     "background_size": 16,
     "scope": "one held-out flow; not an analyst usefulness study"
   },
