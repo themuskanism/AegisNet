@@ -1,0 +1,16 @@
+import { ArrowUpRight, CircleHelp } from './icons'
+import { percentage, timestamp } from './api'
+export const short = (s:string) => s === 'PartOfAHorizontalPortScan' ? 'Horizontal scan' : s
+export const provenance = (s:string) => ({live:'Live',benchmark_replay:'Benchmark replay',synthetic_fixture:'Synthetic fixture'}[s] || `Unknown origin: ${s}`)
+export const number = (n:any) => typeof n === 'number' ? n.toLocaleString(undefined,{maximumFractionDigits:1}) : '—'
+export function Badge({ children }: {children:any}) { return <span className={'badge '+String(children).toLowerCase().replaceAll(' ','-')}>{children ?? 'unavailable'}</span> }
+export function Empty({ title = 'No records yet', children }: {title?:string;children?:any}) { return <div className="empty"><CircleHelp size={24}/><h3>{title}</h3><p>{children || 'Start monitoring or run the labelled benchmark replay to collect evidence.'}</p></div> }
+export function Panel({title,note,children}:{title:string;note?:string;children:any}) { return <section className="panel"><div className="panel-heading"><h2>{title}</h2>{note&&<span>{note}</span>}</div>{children}</section> }
+export function IncidentTable({rows,select}:{rows:any[];select:(id:string)=>void}) { return rows.length?<div className="table-scroll"><table><thead><tr><th>Observed / source</th><th>Classification</th><th>Confidence</th><th>Risk</th><th>Origin</th><th>State</th></tr></thead><tbody>{rows.map(r=><tr key={r.id}><td><button className="text-button mono" onClick={()=>select(r.id)}>{r.flow.source}<ArrowUpRight size={13}/></button><small>{timestamp(r.ingested_at)}</small></td><td>{short(r.prediction.label)}</td><td className="mono">{percentage(r.prediction.confidence)}</td><td><Badge>{r.risk.level}</Badge> {number(r.risk.score)}</td><td><Badge>{provenance(r.provenance)}</Badge></td><td>{r.status}</td></tr>)}</tbody></table></div>:<Empty/> }
+export function Explanation({data}:{data:any}) {
+  if(data?.status!=='ready')return <Empty title={data?.status==='pending'?'Explanation queued':data?.status==='error'?'Explanation unavailable':'Explanation not requested'}>{data?.error||'Attribution runs in a separate worker. The first call includes model warm-up.'}</Empty>
+  const values=data.contributions.slice(0,10),max=Math.max(...values.map((c:any)=>Math.abs(c.contribution)),.00001)
+  return <><div className="explanation-meta"><Badge>SHAP permutation</Badge><span>{number(data.elapsed_ms)} ms · {data.background_size} reference flows</span></div><p>Contributions to <strong>{short(data.label)}</strong> probability. Positive values increase this output; negative values reduce it.</p><div className="attributions">{values.map((c:any)=><div className="attribution" key={c.feature}><span className="mono">{c.feature}</span><div className="signed-track"><i style={{width:`${Math.abs(c.contribution)/max*50}%`,left:c.contribution>=0?'50%':`${50-Math.abs(c.contribution)/max*50}%`,background:c.contribution>=0?'var(--accent)':'var(--info)'}}/></div><b className="mono">{c.contribution>0?'+':''}{c.contribution.toFixed(4)}</b></div>)}</div><div className="equation">Reference {data.base_value.toFixed(4)} + all contributions = {data.output_value.toFixed(4)}</div><p className="muted">{data.caution}</p></>
+}
+
+

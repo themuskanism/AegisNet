@@ -1,0 +1,23 @@
+name: Verify research SOC
+on: [push, pull_request]
+jobs:
+  backend:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+        with:
+          enable-cache: true
+      - run: uv sync --locked --python 3.12
+      - run: uv run pytest -q
+      - run: uv run ruff check backend/flows.py backend/packet_capture.py backend/model.py backend/deep.py backend/store.py backend/response.py backend/risk.py backend/runtime.py backend/api.py research tests scripts --select F
+  frontend:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: npm install --global pnpm@11.19.0
+      - run: pnpm --dir frontend install --frozen-lockfile
+      - run: pnpm --dir frontend check && pnpm --dir frontend test && pnpm --dir frontend lint && pnpm --dir frontend build

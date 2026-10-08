@@ -1,0 +1,20 @@
+# PostgreSQL only; run the sensor on its authorized host interface.
+# Docker execution is optional and must be verified on a host with Docker installed.
+services:
+  database:
+    image: postgres:18
+    environment:
+      POSTGRES_DB: aegisnet
+      POSTGRES_USER: aegis
+      POSTGRES_PASSWORD: ${AEGIS_POSTGRES_PASSWORD:?Set a database password}
+    ports:
+      - '127.0.0.1:5432:5432'
+    volumes:
+      - aegis_pg:/var/lib/postgresql
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U aegis -d aegisnet']
+      interval: 5s
+      timeout: 3s
+      retries: 10
+volumes:
+  aegis_pg:
