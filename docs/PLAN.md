@@ -1,4 +1,4 @@
-# AegisNet 2.0 Implementation Plan
+# Agisnest Implementation Plan
 
 > Execute inline using superpowers:executing-plans; user explicitly requests continuous work. Each task: failing behavioral tests, implementation, complete suite, logical commit.
 

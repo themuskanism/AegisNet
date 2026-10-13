@@ -11,7 +11,7 @@ from backend.store import Action, Source, Incident
 
 def firewall_arguments(action,ip):
     address=str(ipaddress.ip_address(ip))
-    name='AegisNet-'+address.replace(':','_').replace('.','_')
+    name='Agisnest-'+address.replace(':','_').replace('.','_')
     if action=='block': return ['netsh','advfirewall','firewall','add','rule',f'name={name}','dir=in','action=block',f'remoteip={address}','enable=yes']
     if action=='unblock': return ['netsh','advfirewall','firewall','delete','rule',f'name={name}']
     raise ValueError('unsupported firewall action')

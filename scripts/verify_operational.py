@@ -57,7 +57,7 @@ def verify(url,token,out,live):
         interfaces=get('/interfaces');interface=next(i['id'] for i in interfaces if 'loopback' in (i['name']+' '+i['id']).lower())
         class Handler(BaseHTTPRequestHandler):
             def do_GET(self):
-                self.send_response(200);self.end_headers();self.wfile.write(b'AegisNet safe local verification')
+                self.send_response(200);self.end_headers();self.wfile.write(b'Agisnest safe local verification')
             def log_message(self,*args):pass
         server=ThreadingHTTPServer(('127.0.0.1',0),Handler)
         thread=threading.Thread(target=server.serve_forever,daemon=True);thread.start()

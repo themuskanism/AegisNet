@@ -14,7 +14,7 @@ def analyze_traffic():
             packets.append(row)
 
     print("\n=================================")
-    print(" AegisNet Traffic Analysis")
+    print(" Agisnest Traffic Analysis")
     print("=================================")
 
     print(f"Total packets analyzed: {len(packets)}")

@@ -15,10 +15,10 @@ def main():
     for path in files:
         assert path.name not in {'.env', 'analyst-token.txt'}
         assert not ({'.git', '.venv', 'node_modules', '__pycache__', 'benchmark'} & set(path.parts))
-    destination = root.parent / 'AegisNet-2.0.zip'
+    destination = root.parent / 'Agisnest.zip'
     with zipfile.ZipFile(destination, 'w', zipfile.ZIP_DEFLATED) as archive:
         for path in sorted(files):
-            archive.write(root / path, 'AegisNet/' + path.as_posix())
+            archive.write(root / path, 'Agisnest/' + path.as_posix())
     with zipfile.ZipFile(destination) as archive:
         assert archive.testzip() is None
     digest = hashlib.sha256(destination.read_bytes()).hexdigest()

@@ -10,7 +10,7 @@ async function loadDashboard() {
 
         const data = await response.json();
 
-        console.log("AegisNet traffic data:", data);
+        console.log("Agisnest traffic data:", data);
 
         const total = Number(data.total_packets || 0);
 

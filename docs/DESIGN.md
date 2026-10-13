@@ -1,4 +1,4 @@
-# AegisNet 2.0 implementation specification
+# Agisnest implementation specification
 
 Approved direction: evolve the existing Scapy/Flask prototype in this repository. User requested continuous implementation on 2026-10-07 after reviewing the audit. Do not stop at plan gates. No rewrite of unrelated working code.
 

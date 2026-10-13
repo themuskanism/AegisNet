@@ -1,4 +1,4 @@
-# AegisNet 2.0
+# Agisnest
 
 A single-sensor research SOC connecting Scapy capture, shared flow features, evaluated intrusion classifiers, real SHAP explanations, persistent incidents and controlled response.
 

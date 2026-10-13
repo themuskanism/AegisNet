@@ -14,9 +14,9 @@ def dashboard():
 @app.route("/")
 def home():
     return jsonify({
-        "project": "AegisNet",
+        "project": "Agisnest",
         "status": "Backend is running",
-        "message": "AegisNet prototype started successfully"
+        "message": "Agisnest prototype started successfully"
     })
 
 
@@ -24,7 +24,7 @@ def home():
 def status():
     return jsonify({
         "status": "online",
-        "service": "AegisNet Backend"
+        "service": "Agisnest Backend"
     })
 
 

@@ -16,7 +16,7 @@ Original architecture: Scapy → six-column packet CSV → Python protocol/sourc
 | Risk/response/audit | ADD | Transparent policy, simulated/manual state machine and source protection |
 | SQLAlchemy/Alembic/PostgreSQL | ADD | Durable evidence and reversible schema evolution; SQLite testing only |
 
-The isolated clone starts from remote `main` at aa82c622b2fcd4e868ee495d391004a070ab9c44. Work is on `aegisnet-2.0`; baseline tag is `baseline/pre-2.0`. The repository's empty `master` was not treated as the prototype. Original ZIP is retained unchanged in workspace `work/AegisNet.baseline.zip`, SHA256 B2EC30C9EE5FB3312C44C28EA5CBC5ED1D5E1168896645114701C971E6F89181. Original ZIP contained small fallback differences from remote source; it remains the recovery source for those differences. Venv/cache/Git object noise was excluded from the audit.
+The isolated clone starts from remote `main` at aa82c622b2fcd4e868ee495d391004a070ab9c44. Work is on `aegisnet-2.0`; baseline tag is `baseline/pre-2.0`. The repository's empty `master` was not treated as the prototype. Original ZIP is retained unchanged in workspace `work/Agisnest.baseline.zip`, SHA256 B2EC30C9EE5FB3312C44C28EA5CBC5ED1D5E1168896645114701C971E6F89181. Original ZIP contained small fallback differences from remote source; it remains the recovery source for those differences. Venv/cache/Git object noise was excluded from the audit.
 
 ## Final pipeline
 

@@ -55,7 +55,7 @@ def create_app(database_url=None,artifacts=None,token=None):
         runtime.start()
         yield
         runtime.shutdown();store.engine.dispose()
-    app=FastAPI(title='AegisNet 2.0',version='2.0.0',lifespan=lifespan)
+    app=FastAPI(title='Agisnest',version='2.0.0',lifespan=lifespan)
     app.state.runtime=runtime;app.state.store=store
     app.add_middleware(CORSMiddleware,allow_origins=['http://localhost:5173','http://127.0.0.1:5173'],allow_methods=['GET','POST'],allow_headers=['Authorization','Content-Type'])
     def auth(authorization:str=Header(default='')):
@@ -130,7 +130,7 @@ def create_app(database_url=None,artifacts=None,token=None):
         def index():return FileResponse(dist/'index.html')
     else:
         @app.get('/')
-        def index():return {'project':'AegisNet 2.0','dashboard':'Run frontend npm build or npm run dev','health':'/api/health'}
+        def index():return {'project':'Agisnest','dashboard':'Run frontend npm build or npm run dev','health':'/api/health'}
     return app
 
 

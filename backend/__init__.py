@@ -1,1 +1,1 @@
-"""AegisNet network security services."""
+"""Agisnest network security services."""
