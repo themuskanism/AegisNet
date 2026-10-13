@@ -64,6 +64,7 @@
   "limitations": [
     "Loopback functional verification; not production-link throughput or packet-loss capacity testing.",
     "Service latency combines feature extraction, inference and DB write; flow completion and queue waits reported separately.",
-    "Shared process traffic from API requests can also be captured on loopback."
+    "Shared process traffic from API requests can also be captured on loopback.",
+    "Timing distributions and counters cover the current sensor process; they can include earlier replay activity in that process."
   ]
 }

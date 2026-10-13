@@ -1,6 +1,6 @@
 # Final implementation and verification report
 
-Date: 8 October 2026. Status: integrated, demonstrable research capstone; not a production intrusion-prevention appliance.
+Delivery finalized: 13 October 2026. Implementation measurements: 8 October 2026. Status: integrated, demonstrable research capstone; not a production intrusion-prevention appliance.
 
 ## Completed
 
@@ -34,7 +34,7 @@ No cross-scenario or enterprise validation, no zero-day claim, and no analyst us
 
 - Cross-scenario/generalization experiments and minority-class improvement require further research; they cannot be replaced by a claim of live accuracy.
 - Active OS firewall execution requires transactional crash-recovery and platform validation. Simulation/manual-to-simulation are implemented and tested.
-- Docker Compose and hosted GitHub Actions are configured but were not executed in those environments.
+- Both hosted GitHub Actions jobs passed for implementation checkpoint ef0431c: https://github.com/themuskanism/AegisNet/actions/runs/37712313428 . Docker is not installed; native PostgreSQL 18.6 was verified.
 - No multi-user RBAC, tamper-proof audit, durable database-outage spool or production link-capacity certification.
 - Figma is an editable design system and screen composition reference; the runtime includes additional operational detail.
 
@@ -63,3 +63,17 @@ For another computer, follow README.md: Python 3.12/uv, PostgreSQL 18, `uv sync 
 7. Refresh/restart to demonstrate persistence. Finish with limitations, not a production-security claim.
 
 See docs/DEMO_AND_VIVA.md for detailed walkthroughs and 30–60 second explanations.
+
+## Delivery and repository
+
+Implementation checkpoint: `ef0431c` on [aegisnet-2.0](https://github.com/themuskanism/AegisNet/tree/aegisnet-2.0). The baseline tag is also pushed; main is unchanged. Draft PR creation was refused by the GitHub connector (403: integration lacks permission). To open it manually, select base `main` and compare `aegisnet-2.0` at https://github.com/themuskanism/AegisNet/compare/main...aegisnet-2.0 .
+
+The packaged source was extracted to a separate directory and all 42 backend tests passed there in 28.34 seconds, using the existing Python dependency environment. ZIP CRC checks passed. Source, trusted models and built UI are included; passwords, analyst token, databases, raw PCAP, venv and node_modules are excluded. The SHA256 sidecar verifies the archive. A separate Git bundle preserves repository history.
+
+A final independent read-only review found no actionable P0 blockers in the frontend or packaging. This does not imply absence of all bugs.
+
+## Current machine blockers (13 October)
+Windows Application Control now blocks .venv/Scripts/python.exe. Fresh local execution is blocked; earlier test results are historical evidence, not a new run. Ask the device administrator to approve the existing Python installation or provide an approved Python 3.12 installation, recreate the environment with uv sync --locked using that approved interpreter, then run pytest and Start-AegisNet.ps1. Do not disable the device policy.
+
+Docker is not installed. On a Docker-enabled machine, set AEGIS_POSTGRES_PASSWORD, run docker compose config and docker compose up -d, then follow README.md for database migration and API startup. Docker execution has not been verified.
+
